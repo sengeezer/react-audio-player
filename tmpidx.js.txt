@@ -1,0 +1,150 @@
+/* While not required by modern engines,
+it stylistically is still the norm to terminate
+lines with a semicolon.
+*/
+/* This can be dried by doing
+  import React, { Component } from 'react';
+  class App extends Component {}
+*/
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      isPlaying: false,
+      isPaused: true,
+      // Time should be a Number, not a String
+      audioCurrentTime: '0',
+      currentTrack: null,
+    }
+
+    this.trackListings = [
+      'http://www.noiseaddicts.com/samples_1w72b820/50.mp3',
+      'http://www.noiseaddicts.com/samples_1w72b820/51.mp3',
+      'http://www.noiseaddicts.com/samples_1w72b820/52.mp3',
+      'http://www.noiseaddicts.com/samples_1w72b820/53.mp3',
+      'http://www.noiseaddicts.com/samples_1w72b820/54.mp3',
+    ]
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    /* This method could be 
+    dried by using a ternary operator */
+    if (nextState.audioCurrentTime === this.state.audioCurrentTime) return true
+    return false
+  }
+
+  componentDidMount() {
+    this.audioPlayer = document.querySelector('.audio-player')
+
+    this.audioPlayer.addEventListener('timeupdate', () => {
+      this.setState({ audioCurrentTime: this.audioPlayer.currentTime })
+    })
+    /* 1) This results in an array of strings being
+  contained within another array of strings.
+    2) Consequently, track listings as generated
+    further down will never contain all 11 tracks.
+    3) To add track listings in two separate places causes
+    confusion and increases code debt.
+    4) Information such as this should never be
+    hardcoded inside an app and instead be
+    provided by an API, especially when it contains content
+    provided by a third party.  */
+    this.trackListings.push([
+      'http://www.noiseaddicts.com/samples_1w72b820/55.mp3',
+      'http://www.noiseaddicts.com/samples_1w72b820/56.mp3',
+      'http://www.noiseaddicts.com/samples_1w72b820/57.mp3',
+      'http://www.noiseaddicts.com/samples_1w72b820/58.mp3',
+      'http://www.noiseaddicts.com/samples_1w72b820/59.mp3',
+      'http://www.noiseaddicts.com/samples_1w72b820/60.mp3',
+    ])
+  }
+
+  createTrackListing = () => {
+    /* In order to avoid confusion with the class
+      scoped variable of the same name, name,
+      name this something different, e.g. allTracks  */
+    const trackListings = []
+
+    for (var i = 0; i <= this.trackListings.length - 1; i++) {
+      trackListings.push(
+        <ul>
+          {/* 1) Each child should have aunique 'key' prop 
+               2) Use trackListings.map instead of a for loop
+               3) Add multiple li's to ONE ul!
+          */}
+          <li>
+            <button
+              onClick={() => {
+                this.setState({ currentTrack: this.trackListings[i] })
+              }}
+            >
+              #{(i += 1)}: select track
+            </button>
+          </li>
+        </ul>
+      )
+    }
+
+    return trackListings
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Awesome Audio App 🎧</h1>
+        <p>
+          Audio is {(this.state.isPlaying && 'playing') || 'paused'}:{' '}
+          {this.state.currentTrack}
+        </p>
+        <p>{this.state.audioCurrentTime}</p>
+        <button
+          onClick={() => {
+            /* 1) Put all this in a separate method above
+               2) Make console logs conditional on something
+                  like this.state.debug being true. The user
+                has no need for this information in this format.
+             */
+            this.audioPlayer.play()
+            console.info('audio playing')
+            this.setState({
+              isPlaying: true,
+              isPaused: false,
+            })
+          }}
+        >
+          Play
+        </button>
+        <button
+          onClick={() => {
+            this.audioPlayer.play()
+            console.info('audio paused')
+            this.setState({
+              isPlaying: false,
+              isPaused: true,
+            })
+          }}
+        >
+          Pause
+        </button>
+        <div>
+          <h3>Track Listings:</h3>
+
+          {this.createTrackListing()}
+        </div>
+        {/* In React, we use 'className'
+          to avoid conflict with the Javascript
+          class declaration */}
+        <audio class="audio-player" src="" />
+      </div>
+    )
+  }
+}
+
+const rootElement = document.getElementById('root')
+
+ReactDOM.render(<App />, rootElement)
+
