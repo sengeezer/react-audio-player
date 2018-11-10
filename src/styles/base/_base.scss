@@ -1,0 +1,31 @@
+// Make rem units base 10
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: $baseFont;
+  font-size: $medium;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-size: 2.2rem; // 22px
+}
+
+code {
+  font-family: $fwFont;
+}
+
+/* Utilities */
+.clearfix:after { 
+  content: "."; 
+  visibility: hidden; 
+  display: block; 
+  height: 0; 
+  clear: both;
+}
