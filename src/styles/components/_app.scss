@@ -136,10 +136,10 @@
     cursor: ew-resize;
   
     .filled {
-      width: 50%;
+      width: 0;
       background: $lightCtrl;
       flex: 0;
-      flex-basis: 50%;
+      flex-basis: 0;
     }
   }
 }

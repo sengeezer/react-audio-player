@@ -1,3 +1,9 @@
+# Iwoca music player
+
+This player draws inspiration from [Wes Bos' 30 day Javascript challenge](https://javascript30.com/) but uses React instead of plain Javascript.
+
+# Original notes
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -32,6 +32,8 @@ class App extends Component {
       this.setState({
         trackProgress: this.player.currentTime
       });
+      const percent = (this.player.currentTime / this.player.duration) * 100;
+      document.querySelector('.filled').style.flexBasis = `${percent}%`;
     });
 
     this.player.addEventListener('ended', () => {
