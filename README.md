@@ -2,6 +2,11 @@
 
 This player draws inspiration from [Wes Bos' 30 day Javascript challenge](https://javascript30.com/) but uses React instead of plain Javascript.
 
+## TBD
+
+* Track selection
+* Time remaining
+
 # Original notes
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

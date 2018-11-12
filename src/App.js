@@ -9,6 +9,8 @@ class App extends Component {
       paused: false,
       stopped: true,
       trackProgress: 0,
+      trackDuration: 0,
+      trackVolume: 0.5,
       trackSelected: null,
       tracks: [
         'http://www.noiseaddicts.com/samples_1w72b820/55.mp3',
@@ -21,6 +23,9 @@ class App extends Component {
     };
 
     this.handlePlayPause = this.handlePlayPause.bind(this);
+    this.handleTrackSelect = this.handleTrackSelect.bind(this);
+    this.handleVolumeChange = this.handleVolumeChange.bind(this);
+    this.handleSkip = this.handleSkip.bind(this);
   }
   shouldComponentUpdate(nextProps, nextState) {
      return nextState.audioCurrentTime === this.state.audioCurrentTime;
@@ -62,6 +67,19 @@ class App extends Component {
       });
     }
   }
+  handleTrackSelect(e) {
+    e.preventDefault();
+  }
+  handleVolumeChange(e) {
+    this.setState({
+      trackVolume: e.target.value
+    })
+
+    this.player.volume = this.state.trackVolume;
+  }
+  handleSkip() {
+    console.log('Not yet implemented.');
+  }
   render() {
     return (
       <div className="app">
@@ -78,18 +96,18 @@ class App extends Component {
               <div className="progress">
                 <div className="filled"></div>
               </div>
-              <button data-skip="-10" className="player-button">«</button>
+              <button data-skip="-10" className="player-button" onClick={this.handleSkip}>«</button>
               <button className="player-button toggle" title="Play/Pause" onClick={this.handlePlayPause}>{this.state.playing? '❚ ❚' : '►'}</button>
-              <button data-skip="25" className="player-button">»</button>
-              <span className="info-text">{this.state.trackProgress}</span>
-              <input type="range" name="volume" className="player-slider" min="0" max="1" step="0.05" value="1" />
+              <button data-skip="25" className="player-button" onClick={this.handleSkip}>»</button>
+              <span className="info-text">{this.state.trackDuration - this.state.trackProgress}</span>
+              <input type="range" name="volume" className="player-slider" min="0" max="1" step="0.05" value={this.state.trackVolume} onChange={this.handleVolumeChange} />
             </div>
           </section>
           <section>
             <h2>Playlist</h2>
             <ul className="playlist">
               { this.state.tracks.length === 0 ? <li>No tracks found</li> : this.state.tracks.map((track, index) => (
-                <li key={index}><a href={track}>Track {index + 1}</a></li>
+                <li key={index}><a href={track} onClick={this.handleTrackSelect}>Track {index + 1}</a></li>
               ))}
             </ul>
           </section>
