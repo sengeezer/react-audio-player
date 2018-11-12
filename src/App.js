@@ -71,7 +71,7 @@ class App extends Component {
         <main className="clearfix">
           <section className="player">
             <p>Current track: {this.state.trackSelected}</p>
-            <audio className="audio-player" controls src="http://www.noiseaddicts.com/samples_1w72b820/3707.mp3">
+            <audio className="audio-player" src="http://www.noiseaddicts.com/samples_1w72b820/3707.mp3">
               Your browser does not support the <code>audio</code> element.
             </audio>
             <div className="player-controls">
