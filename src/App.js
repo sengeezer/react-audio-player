@@ -33,6 +33,14 @@ class App extends Component {
   componentDidMount() {
     this.player = document.querySelector('.audio-player');
 
+    this.player.addEventListener('loadeddata', () => {
+      if (this.player.readyState >= 2) {
+        this.setState({
+          trackDuration: this.player.duration
+        });
+      }
+    });
+
     this.player.addEventListener('timeupdate', () => {
       this.setState({
         trackProgress: this.player.currentTime
@@ -96,19 +104,46 @@ class App extends Component {
               <div className="progress">
                 <div className="filled"></div>
               </div>
-              <button data-skip="-10" className="player-button" onClick={this.handleSkip}>«</button>
-              <button className="player-button toggle" title="Play/Pause" onClick={this.handlePlayPause}>{this.state.playing? '❚ ❚' : '►'}</button>
-              <button data-skip="25" className="player-button" onClick={this.handleSkip}>»</button>
-              <span className="info-text">{this.state.trackDuration - this.state.trackProgress}</span>
-              <input type="range" name="volume" className="player-slider" min="0" max="1" step="0.05" value={this.state.trackVolume} onChange={this.handleVolumeChange} />
+              <button
+                data-skip="-10"
+                className="player-button"
+                onClick={this.handleSkip}
+              >«</button>
+              <button
+                className="player-button toggle"
+                title="Play/Pause"
+                onClick={this.handlePlayPause}
+              >{this.state.playing? '❚ ❚' : '►'}
+              </button>
+              <button
+                data-skip="25"
+                className="player-button"
+                onClick={this.handleSkip}
+              >»</button>
+              <span className="info-text">
+                {(this.state.trackDuration - this.state.trackProgress).toFixed(2)}
+              </span>
+              <input
+                type="range"
+                name="volume"
+                className="player-slider"
+                min="0"
+                max="1"
+                step="0.05"
+                value={this.state.trackVolume}
+                onChange={this.handleVolumeChange}
+              />
             </div>
           </section>
           <section>
             <h2>Playlist</h2>
             <ul className="playlist">
-              { this.state.tracks.length === 0 ? <li>No tracks found</li> : this.state.tracks.map((track, index) => (
-                <li key={index}><a href={track} onClick={this.handleTrackSelect}>Track {index + 1}</a></li>
-              ))}
+              { this.state.tracks.length === 0
+                ? <li>No tracks found</li>
+                : this.state.tracks.map((track, index) => (
+                    <li key={index}><a href={track} onClick={this.handleTrackSelect}>Track {index + 1}</a></li>
+                  ))
+              }
             </ul>
           </section>
         </main>

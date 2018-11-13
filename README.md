@@ -5,7 +5,6 @@ This player draws inspiration from [Wes Bos' 30 day Javascript challenge](https:
 ## TBD
 
 * Track selection
-* Time remaining
 
 # Original notes
 
