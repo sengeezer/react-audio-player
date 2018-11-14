@@ -4,7 +4,7 @@
 
 This player draws inspiration from [Wes Bos' 30 day Javascript challenge](https://javascript30.com/) but uses React instead of plain Javascript.
 
-Thanks to [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web) for pointers.
+Thanks to [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web) for pointers and to [Noise Addicts](http://www.noiseaddicts.com/) for [the samples](http://www.noiseaddicts.com/free-samples-mp3/).
 
 # Original notes (abbreviated)
 
