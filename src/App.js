@@ -11,14 +11,41 @@ class App extends Component {
       trackProgress: 0,
       trackDuration: 0,
       trackVolume: 0.5,
-      trackSelected: null,
+      trackSelected: {
+        title: 'Just a drill',
+        url: 'http://www.noiseaddicts.com/samples_1w72b820/3707.mp3'
+      },
       tracks: [
-        'http://www.noiseaddicts.com/samples_1w72b820/55.mp3',
-        'http://www.noiseaddicts.com/samples_1w72b820/56.mp3',
-        'http://www.noiseaddicts.com/samples_1w72b820/57.mp3',
-        'http://www.noiseaddicts.com/samples_1w72b820/58.mp3',
-        'http://www.noiseaddicts.com/samples_1w72b820/59.mp3',
-        'http://www.noiseaddicts.com/samples_1w72b820/60.mp3',
+        {
+          title: 'I\'m Sorry, Dave',
+          artist: '2001',
+          duration: 3.00,
+          url: 'http://www.noiseaddicts.com/samples_1w72b820/55.mp3'
+        },
+        {
+          title: 'Chad',
+          artist: 'National Anthem',
+          duration: 79.0,
+          url: 'http://www.noiseaddicts.com/samples_1w72b820/4040.mp3'
+        },
+        {
+          title: 'Estonia',
+          artist: 'National Anthem',
+          duration: 34.0,
+          url: 'http://www.noiseaddicts.com/samples_1w72b820/4186.mp3'
+        },
+        {
+          title: 'Guam',
+          artist: 'National Anthem',
+          duration: 46.0,
+          url: 'http://www.noiseaddicts.com/samples_1w72b820/4195.mp3'
+        },
+        {
+          title: 'Isle of Man',
+          artist: 'National Anthem',
+          duration: 37.0,
+          url: 'http://www.noiseaddicts.com/samples_1w72b820/4206.mp3'
+        }
       ]
     };
 
@@ -77,6 +104,16 @@ class App extends Component {
   }
   handleTrackSelect(e) {
     e.preventDefault();
+
+    const trackSelectedIndex = e.currentTarget.dataset.index || 0;
+    const trackSelectedMeta = this.state.tracks[trackSelectedIndex];
+
+    this.setState({
+      trackSelected: {
+        title: trackSelectedMeta.title,
+        url: trackSelectedMeta.url
+      }
+    });
   }
   handleVolumeChange(e) {
     this.setState({
@@ -96,8 +133,8 @@ class App extends Component {
         </header>
         <main className="clearfix">
           <section className="player">
-            <p>Current track: {this.state.trackSelected}</p>
-            <audio className="audio-player" src="http://www.noiseaddicts.com/samples_1w72b820/3707.mp3">
+            <h3>Current track: {this.state.trackSelected.title}</h3>
+            <audio className="audio-player" src={this.state.trackSelected.url}>
               Your browser does not support the <code>audio</code> element.
             </audio>
             <div className="player-controls">
@@ -136,12 +173,22 @@ class App extends Component {
             </div>
           </section>
           <section>
-            <h2>Playlist</h2>
+            <h2>Available Tracks</h2>
             <ul className="playlist">
               { this.state.tracks.length === 0
                 ? <li>No tracks found</li>
                 : this.state.tracks.map((track, index) => (
-                    <li key={index}><a href={track} onClick={this.handleTrackSelect}>Track {index + 1}</a></li>
+                  <a
+                    key={index}
+                    href={track.url}
+                    data-index={index}
+                    onClick={this.handleTrackSelect}
+                  >
+                    <li className={track.url === this.state.trackSelected.url ? 'item selected' : 'item'}>
+                      <strong>{track.title}</strong> by {track.artist}<br />
+                      <span className="small">Duration: {track.duration}s</span>
+                    </li>
+                  </a>
                   ))
               }
             </ul>

@@ -29,7 +29,7 @@
     background: none;
     border: 0;
     line-height: 1;
-    color:  #ccc;
+    color:  #666;
     text-align: center;
     outline: 0;
     padding: 0;
@@ -123,7 +123,7 @@
 
   .info-text {
     font-size: 1.1rem;
-    padding: 5px;
+    padding: 8px 0 0;
   }
 
   .progress {
@@ -150,12 +150,32 @@ ul.playlist {
   width: 50%;
 
   li {
+    font-size: 1.5rem;
     padding: 5px;
     border-bottom: 1px solid #666;
 
-    &:hover {
-      cursor: pointer;
-      background-color: rgb(231, 230, 230);
+    &.item {
+      background-color: #fff;
+
+      &:hover {
+        cursor: pointer;
+        background-color: rgb(231, 230, 230);
+      }
+    }
+
+    &.selected {
+      background-color: aquamarine;
+    }
+
+    a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .small {
+      font-size: 1.1rem;
     }
   }
 }
