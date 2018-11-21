@@ -1,4 +1,4 @@
-# Iwoca music player
+# React music player
 
 ## Credits
 
