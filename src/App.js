@@ -129,7 +129,7 @@ class App extends Component {
     return (
       <div className="app">
         <header className="header">
-          <h1>Iwoca music player</h1>
+          <h1>React music player</h1>
         </header>
         <main className="clearfix">
           <section className="player">
@@ -195,7 +195,7 @@ class App extends Component {
           </section>
         </main>
         <footer>
-          &copy; IMP
+          &copy; FMA
         </footer>
       </div>
     );
